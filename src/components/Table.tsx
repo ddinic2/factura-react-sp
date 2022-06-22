@@ -1,9 +1,10 @@
 import React from "react";
-import ServiceItem from "../models/ServiceItem";
+import { v4 as uuidv4 } from 'uuid';
+// import ServiceItem from "../models/ServiceItem";
 
 interface TableObject {
     col: string[];
-    data: ServiceItem[];
+    data: any[];
     fields: string[];
     deleteRow: Function;
     editRow: Function;
@@ -20,14 +21,14 @@ const Table = ({ col, data, fields, deleteRow, editRow, showEdit, showDelete }: 
                 <thead>
                     <tr>
                         {col.map(c => {
-                            return <th scope="col">{c}</th>
+                            return <th key={uuidv4()} scope="col">{c}</th>
                         })}
                     </tr>
                 </thead>
                 <tbody>
                     {data.map(d => {
-                        return <tr>{fields.map(f => {
-                            return <td>{d.ServiceName}</td>
+                        return <tr key={uuidv4()}>{fields.map(f => {
+                            return <td key={uuidv4()}>{d[f]}</td>
                         })}
                         <td>
                             {showDelete?<button type="button" className="btn btn-sm btn-danger me-1" onClick={()=>{deleteRow(d)}}><i className="fa-regular fa-trash-can"></i></button>:null}
@@ -35,18 +36,7 @@ const Table = ({ col, data, fields, deleteRow, editRow, showEdit, showDelete }: 
                         </td>
                         </tr>
                     })}
-                    {/* <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr> */}
+                  
                 </tbody>
             </table>
         </>

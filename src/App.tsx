@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import NavBar from './components/nav-bar/NavBar';
 import Service from './service/Service';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,7 @@ import InvoiceInfoList from './components/invoice-info/InvoiceInfoList';
 import PartnerList from './components/partners/PartnerList';
 import MyCompany from './components/my-company/MyCompany';
 import ServiceItems from './components/service-items/ServiceItems';
+import EditService from './components/service-items/EditService';
 
 
 let App = () => {
@@ -27,19 +28,15 @@ let App = () => {
   return (
     <>
 
-      <BrowserRouter>
+      <BrowserRouter basename='/'>
         <NavBar />
         <Routes>
-          <Route path="/" element={<InvoiceInfoList />}>
-            {/* <Route path="teams" element={<Teams />}>
-              <Route path=":teamId" element={<Team />} />
-              <Route path="new" element={<NewTeamForm />} />
-              <Route index element={<LeagueStandings />} />
-            </Route> */}
+          <Route path="/" element={<InvoiceInfoList />}></Route>
+          <Route path='partners' element={<PartnerList />}></Route>
+          <Route path='my-company' element={<MyCompany/>}></Route>
+          <Route path='service-items' element={<ServiceItems/>}>
+            <Route path=":id" element={<EditService />} />
           </Route>
-          <Route path='/partners' element={<PartnerList />}></Route>
-          <Route path='/my-company' element={<MyCompany/>}></Route>
-          <Route path='/service-items' element={<ServiceItems/>}></Route>
         </Routes>
       </BrowserRouter>
 

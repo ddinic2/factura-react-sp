@@ -3,6 +3,7 @@ import ServiceItem from "../../models/ServiceItem";
 import Service from "../../service/Service";
 import Loader from "../loader/Loader";
 import Table from "../Table";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ServiceItems = () => {
 
@@ -11,6 +12,7 @@ const ServiceItems = () => {
     const [col] = useState(['Service','Options']);
     const [fields] = useState(['ServiceName'])
     const svc = new Service();
+    let navigate = useNavigate();
 
     useEffect(() => {
         setLoader(true);
@@ -31,13 +33,13 @@ const ServiceItems = () => {
     };
 
     const editRow = (editIt:ServiceItem) => {
-        
-        alert('Edit')
+        navigate('/service-items/' + editIt.Id);
     }
 
     return (
         <>
             {loader ? <Loader /> : <Table col={col} data={services} fields={fields} deleteRow={deleteRow} editRow={editRow} showEdit={true} showDelete={true} />}
+            <Outlet />
         </>
     )
 }
